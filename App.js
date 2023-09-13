@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Screens/Profile';
 import Analyzer from './Screens/Analyzer';
 import Post from './Screens/Post';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Stack = createStackNavigator();
@@ -15,9 +16,36 @@ const Tab = createBottomTabNavigator();
 function MainTabs(){
   return (
     <Tab.Navigator initialRouteName="Profile">
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Post" component={Post} />
-      <Tab.Screen name="Analyzer" component={Analyzer} />
+      <Tab.Screen 
+        name="Profile" 
+        component={Profile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Post" 
+        component={Post}
+        options={{
+          tabBarLabel: 'Post',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="create" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Analyzer" 
+        component={Analyzer}
+        options={{
+          tabBarLabel: 'Analyzer',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="analytics" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
