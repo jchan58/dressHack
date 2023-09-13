@@ -14,8 +14,7 @@ const Login = () => {
     <View style = {styles.root}>
       <Image source = {Logo} 
       style={[styles.logo, 
-      {height: height * 0.2}]} 
-      resizeMethod="contain">
+      {height: height * 0.2}]}>
       </Image>
 
       <View style={styles.textInputContainer}>
