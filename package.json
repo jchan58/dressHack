@@ -21,7 +21,9 @@
     "react-native-gesture-handler": "^2.12.1",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-safe-area-context": "4.6.3",
-    "sisteransi": "^1.0.5"
+    "sisteransi": "^1.0.5",
+    "expo-camera": "~13.4.4",
+    "expo-media-library": "~15.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
