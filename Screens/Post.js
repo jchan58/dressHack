@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import ImageViewer from './components/ImageViewer';
-import Button from './components/Button'
+import ImageViewer from '../components/ImageViewer';
+import Button from '../components/Button'
 import {LinearGradient} from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 
-const PlaceholderImage = require('./assets/blank_image.png');
+const PlaceholderImage = require('../assets/blank_image.png');
 
 export default function Post() {
 
