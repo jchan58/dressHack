@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const PlaceholderImage = require('./assets/blank_image.png');
 
-export default function App() {
+export default function Post() {
 
   const [selectedImage, setSelectedImage] = useState(null);
 

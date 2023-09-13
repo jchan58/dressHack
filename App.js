@@ -1,16 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-//importing login screen
 import Login from './Screens/Login';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Profile from './Screens/Profile';
+import Analyzer from './Screens/Analyzer';
+import Post from './Screens/Post';
+
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Login />
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#00008b' }}} >
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Camera" component={Analyzer} />
+        <Stack.Screen name="Feed" component={Post} />
+      </Stack.Navigator>
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

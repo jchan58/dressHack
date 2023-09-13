@@ -2,11 +2,9 @@ import { View, Text, Image, StyleSheet, useWindowDimensions} from 'react-native'
 import React, {useState} from 'react';
 import Logo from '../assets/images/Logo.png'; 
 import CustomInput from '../components/Custom_Input';
-//use state  to keep track of username
 
 
 const Login = () => {
-  //initially an empty string for both
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
