@@ -6,7 +6,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 
-const PlaceholderImage = require('../assets/blank_image.png');
+const PlaceholderImage = require('../assets/images/blank_image.png');
 
 export default function Post() {
 

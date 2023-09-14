@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, useWindowDimensions } 
 import Logo from '../assets/images/Logo.png'; 
 import CustomInput from '../components/Custom_Input';
 import { useNavigation } from '@react-navigation/native';
-
+import {LinearGradient} from 'expo-linear-gradient';
 
 
 const Login = () => {
@@ -16,20 +16,23 @@ const Login = () => {
   const {height} = useWindowDimensions();
   return (
     <View style = {styles.root}>
+      <LinearGradient colors = {['#000000', '#2c106e', '#71319e']} style = {styles.linearGradient}>
       <Image source = {Logo} 
       style={[styles.logo, 
       {height: height * 0.2}]}>
       </Image>
-
-      <View style={styles.textInputContainer}>
-        <CustomInput placeholder= "Username" value ={username} setvalue={setUsername} />
-        <CustomInput placeholder="Password" value={password} setvalue={setPassword} />
+      
+      <View style= {styles.containerInput}>
+        <View style={styles.textInputContainer}>
+          <CustomInput placeholder= "Username" value ={username} setvalue={setUsername} />
+          <CustomInput placeholder="Password" value={password} setvalue={setPassword} />
+        </View>
+     
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-
+      </LinearGradient>
     </View>
   )
 }
@@ -63,6 +66,17 @@ const styles = StyleSheet.create({
   },
   textInputContainer: {
     marginTop: 20, // Add space between the logo and text inputs
+  },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5,
+  },
+  containerInput: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
 });
 
