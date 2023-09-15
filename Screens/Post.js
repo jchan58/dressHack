@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   footerContainer: {
     flex: 1 / 3,
     alignItems: 'center',
-    paddingTop: 75
+    paddingTop: 40,
   },
   linearGradient: {
     flex: 1,
