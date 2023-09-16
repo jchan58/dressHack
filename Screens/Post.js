@@ -5,12 +5,15 @@ import Button from '../components/Button'
 import {LinearGradient} from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const PlaceholderImage = require('../assets/images/blank_image.png');
+
 
 export default function Post() {
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const navigation = useNavigation();
 
   //image picking functionality (has cropping! perfect...)
   const pickImageAsync = async () => {
@@ -26,6 +29,10 @@ export default function Post() {
     }
   };
 
+  const Post = () => {
+    navigation.navigate('ViewPosts');
+  };
+
   //the page with the buttons
   return (
     <LinearGradient colors = {['#000000', '#2c106e', '#71319e']} style = {styles.linearGradient}>
@@ -39,7 +46,7 @@ export default function Post() {
 
         <View style={styles.footerContainer}>
             <Button theme="choose" label="Choose a photo" onPress = {pickImageAsync} />
-            <Button theme="post" label= "Post!" />
+            <Button theme="post" label= "Post!" onPress = {Post}/>
         </View>
 
         <StatusBar style="dark" />

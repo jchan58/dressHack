@@ -20,10 +20,10 @@ import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 
-const casualImageEx = require('../images/assets/casual_ex.jpg');
-const profImageEx = require('../images/assets/prof_ex.jpg');
-const exerImageEx = require('../images/assets/exer_ex.jpg');
-const partyImageEx = require('../images/assets/party_ex.jpg');
+const casualImageEx = require('../assets/images/casual_ex.jpg');
+const profImageEx = require('../assets/images/prof_ex.jpg');
+const exerImageEx = require('../assets/images/exer_ex.jpg');
+const partyImageEx = require('../assets/images/party_ex.jpg');
 
 const ViewPosts = () => {
   
