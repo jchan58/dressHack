@@ -1,30 +1,40 @@
 //need to be able to choose by to be anon or get name from profile
-//get style from analysis (put in file name ig when saved?)
-//need to be able to pass analyzed image to post
+//get style from analysis (Joey)
+//make analyzer the center tap, get rid of weird top...
+//need to be able to pass analyzed image to post (Joey)
 //need to be able to see only your posts (on profile or here)
 //restyle text and stuff
 
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  StatusBar, View, Image
-} from 'react-native';
+import {StyleSheet, Text, ScrollView, StatusBar, View, Image, Pressable} from 'react-native';
 
 import {LinearGradient} from 'expo-linear-gradient';
-import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as MediaLibrary from 'expo-media-library'
 import ImageViewer from '../components/ImageViewer';
-import { useRoute } from "@react-navigation/native"
+import { useRoute } from "@react-navigation/native";
+import * as Font from 'expo-font';
 
 const casualImageEx = require('../assets/images/casual_ex.jpg');
 const profImageEx = require('../assets/images/prof_ex.jpg');
-const exerImageEx = require('../assets/images/exer_ex.jpg');
+const partyImageEx = require('../assets/images/party_ex.jpg');
 const PlaceholderImage = require('../assets/images/blank_image.png');
 
 const ViewPosts = () => {
+
+  const [fontsLoaded, setLoaded] = useState(false);
+  
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      'Orbitron': require('../assets/fonts/Orbitron.ttf'), 'Tektur': require('../assets/fonts/Orbitron.ttf'), 
+      'JosefinSans': require('../assets/fonts/JosefinSans.ttf'), 'Roboto': require('../assets/fonts/Roboto.ttf'),
+      'Exo': require('../assets/fonts/Exo.ttf')
+    });
+    setLoaded(true);
+  }
+
+  loadFonts();
 
   //for if user selected a post
   const [selectedImage, setSelectedImage] = useState(null);
@@ -38,7 +48,7 @@ const ViewPosts = () => {
   const [likes4, setLikes4] = useState(225);
   const [likes1, setLikes1] = useState(313);
   const [likes2, setLikes2] = useState(200);
-  const [likes3, setLikes3] = useState(114);
+  const [likes3, setLikes3] = useState(325);
 
 
 
@@ -59,58 +69,187 @@ const ViewPosts = () => {
  
   
   getPostAsync();
+  const route = useRoute();
   if(selectedImage != null) {
-    const route = useRoute()
     const postText = route.params?.postText
+    if(fontsLoaded) {
+      return (
+        <View style={styles.containerMajor}>
+      
+        <LinearGradient colors = {['#123EA6','#0947DA','#6D2FEC','#71319e']} style = {styles.linearGradient}>
+          <StatusBar style="dark" />   
+            <ScrollView style={styles.scrollView}>
+
+
+            <View style={styles.container}>
+              <View style={styles.imageContainer}>
+                
+              <ImageViewer
+              placeholderImageSource={PlaceholderImage}
+              //this time is the post
+              selectedImage={selectedImage}
+              />
+              </View>
+
+
+              <View style={styles.interactContainer}>
+                <View style = {[styles.leftTextContainer, styles.textUnderline]}>
+                  <Text style= {styles.text}>Outfit By: Amy</Text>
+                </View>
+
+                <View style = {styles.leftTextContainer}>
+                  <Text style= {styles.text}>Style: Casual</Text>
+                </View>
+
+                <View style = {styles.descTextContainer}>
+                  <Text style= {styles.descText}>{postText}</Text>
+                </View>
+                
+                <View style = {styles.likeContainer}>
+                  <Pressable onPress={() => [setLiked4((isLiked) => !isLiked), liked4 ? setLikes4(likes4 - 1) : setLikes4(likes4 + 1)] }>
+                    <Ionicons
+                      name={liked4 ? "heart" : "heart-outline"}
+                      size={32}
+                      color={liked4 ? '#fc3fc4' : "black"}
+                    />
+                  </Pressable>
+
+                  <Text style = {styles.likeText}>{likes4}</Text>
+
+                </View>
+
+              </View>
+            </View>
+
+
+
+            <View style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image source={casualImageEx} style={styles.image} />
+              </View>
+
+
+              <View style={styles.interactContainer}>
+                <View style = {[styles.leftTextContainer, styles.textUnderline]}>
+                  <Text style= {styles.text}>Outfit By: Amy</Text>
+                </View>
+
+                <View style = {styles.leftTextContainer}>
+                  <Text style= {styles.text}>Style: Casual</Text>
+                </View>
+
+                <View style = {styles.descTextContainer}>
+                  <Text style= {styles.descText}>Outfit for today!</Text>
+                </View>
+                
+                <View style = {styles.likeContainer}>
+                  <Pressable onPress={() => [setLiked1((isLiked) => !isLiked), liked1 ? setLikes1(likes1 - 1) : setLikes1(likes1 + 1)]}>
+                    <Ionicons
+                      name={liked1 ? "heart" : "heart-outline"}
+                      size={32}
+                      color={liked1 ? '#fc3fc4' : "black"}
+                    />
+                  </Pressable>
+
+                  <Text style = {styles.likeText}>{likes1}</Text>
+
+                </View>
+
+              </View>
+            </View>
+
+            <View style={styles.container}>
+              
+            </View>
+
+            <View style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image source={profImageEx} style={styles.image} />
+              </View>
+
+
+              <View style={styles.interactContainer}>
+                <View style = {[styles.leftTextContainer, styles.textUnderline]}>
+                  <Text style= {styles.text}>Outfit By: Jeremy</Text>
+                </View>
+
+                <View style = {styles.leftTextContainer}>
+                  <Text style= {styles.text}>Style: Professional</Text>
+                </View>
+
+                <View style = {styles.descTextContainer}>
+                  <Text style= {styles.descText}>Ready to present.</Text>
+                </View>
+                
+                <View style = {styles.likeContainer}>
+                  <Pressable onPress={() => [setLiked2((isLiked) => !isLiked), liked2 ? setLikes2(likes2 - 1) : setLikes2(likes2 + 1)]}>
+                    <Ionicons
+                      name={liked2 ? "heart" : "heart-outline"}
+                      size={32}
+                      color={liked2 ? '#fc3fc4' : "black"}
+                    />
+                  </Pressable>
+
+                  <Text style = {styles.likeText}>{likes2}</Text>
+                </View>
+
+              </View>
+
+              
+            </View>
+
+            <View style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image source={partyImageEx} style={styles.image} />
+              </View>
+
+
+              <View style={styles.interactContainer}>
+                <View style = {[styles.leftTextContainer, styles.textUnderline]}>
+                  <Text style= {styles.text}>Outfit By: Mary</Text>
+                </View>
+
+                <View style = {styles.leftTextContainer}>
+                  <Text style= {styles.text}>Style: Casual</Text>
+                </View>
+
+                <View style = {styles.descTextContainer}>
+                  <Text style= {styles.descText}>Dance time!</Text>
+                </View>
+                
+                <View style = {styles.likeContainer}>
+                  <Pressable onPress={() => [setLiked3((isLiked) => !isLiked), liked3 ? setLikes3(likes3 - 1) : setLikes3(likes3 + 1)]}>
+                    <Ionicons
+                      name={liked3 ? "heart" : "heart-outline"}
+                      size={32}
+                      color={liked3 ? '#fc3fc4' : "black"}
+                    />
+                  </Pressable>
+
+                  <Text style = {styles.likeText}>{likes3}</Text>
+                </View>
+
+
+              </View>
+
+
+
+            </View>
+            
+      
+            </ScrollView>
+        </LinearGradient>
+      </View>
+      );
+    }
+  }
+  if(fontsLoaded) {
     return (
       <View style={styles.containerMajor}>
-    
+      
       <LinearGradient colors = {['#000000', '#2c106e', '#71319e']} style = {styles.linearGradient}>
         <StatusBar style="dark" />   
           <ScrollView style={styles.scrollView}>
-
-
-          <View style={styles.container}>
-            <View style={styles.imageContainer}>
-              
-            <ImageViewer
-            placeholderImageSource={PlaceholderImage}
-            //this time is the post
-            selectedImage={selectedImage}
-            />
-            </View>
-
-
-            <View style={styles.interactContainer}>
-              <View style = {[styles.leftTextContainer, styles.textUnderline]}>
-                <Text style= {styles.text}>Outfit By: Amy</Text>
-              </View>
-
-              <View style = {styles.leftTextContainer}>
-                <Text style= {styles.text}>Style: Casual</Text>
-              </View>
-
-              <View style = {styles.descTextContainer}>
-                <Text style= {styles.descText}>{postText}</Text>
-              </View>
-              
-              <View style = {styles.likeContainer}>
-                <Pressable onPress={() => [setLiked4((isLiked) => !isLiked), liked4 ? setLikes4(likes4 - 1) : setLikes4(likes4 + 1)] }>
-                  <Ionicons
-                    name={liked4 ? "heart" : "heart-outline"}
-                    size={32}
-                    color={liked4 ? '#fc3fc4' : "black"}
-                  />
-                </Pressable>
-
-                <Text style = {styles.likeText}>{likes4}</Text>
-
-              </View>
-
-            </View>
-          </View>
-
-
 
           <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -132,7 +271,7 @@ const ViewPosts = () => {
               </View>
               
               <View style = {styles.likeContainer}>
-                <Pressable onPress={() => [setLiked1((isLiked) => !isLiked), liked1 ? setLikes1(likes1 - 1) : setLikes1(likes1 + 1)]}>
+                <Pressable onPress={() => setLiked1((isLiked) => !isLiked)}>
                   <Ionicons
                     name={liked1 ? "heart" : "heart-outline"}
                     size={32}
@@ -140,7 +279,7 @@ const ViewPosts = () => {
                   />
                 </Pressable>
 
-                <Text style = {styles.likeText}>{likes1}</Text>
+                <Text style = {styles.likeText}>313</Text>
 
               </View>
 
@@ -171,7 +310,7 @@ const ViewPosts = () => {
               </View>
               
               <View style = {styles.likeContainer}>
-                <Pressable onPress={() => [setLiked2((isLiked) => !isLiked), liked2 ? setLikes2(likes2 - 1) : setLikes2(likes2 + 1)]}>
+                <Pressable onPress={() => setLiked2((isLiked) => !isLiked)}>
                   <Ionicons
                     name={liked2 ? "heart" : "heart-outline"}
                     size={32}
@@ -179,7 +318,7 @@ const ViewPosts = () => {
                   />
                 </Pressable>
 
-                <Text style = {styles.likeText}>{likes2}</Text>
+                <Text style = {styles.likeText}>200</Text>
               </View>
 
             </View>
@@ -189,25 +328,25 @@ const ViewPosts = () => {
 
           <View style={styles.container}>
             <View style={styles.imageContainer}>
-              <Image source={exerImageEx} style={styles.image} />
+              <Image source={partyImageEx} style={styles.image} />
             </View>
 
 
             <View style={styles.interactContainer}>
               <View style = {[styles.leftTextContainer, styles.textUnderline]}>
-                <Text style= {styles.text}>Outfit By: Lucy</Text>
+                <Text style= {styles.text}>Outfit By: Mary</Text>
               </View>
 
               <View style = {styles.leftTextContainer}>
-                <Text style= {styles.text}>Style: Exercise</Text>
+                <Text style= {styles.text}>Style: Casual</Text>
               </View>
 
               <View style = {styles.descTextContainer}>
-                <Text style= {styles.descText}>Exercise fit!!</Text>
+                <Text style= {styles.descText}>Dance night!</Text>
               </View>
               
               <View style = {styles.likeContainer}>
-                <Pressable onPress={() => [setLiked3((isLiked) => !isLiked), liked3 ? setLikes3(likes3 - 1) : setLikes3(likes3 + 1)]}>
+                <Pressable onPress={() => setLiked3((isLiked) => !isLiked)}>
                   <Ionicons
                     name={liked3 ? "heart" : "heart-outline"}
                     size={32}
@@ -215,7 +354,7 @@ const ViewPosts = () => {
                   />
                 </Pressable>
 
-                <Text style = {styles.likeText}>{likes3}</Text>
+                <Text style = {styles.likeText}>114</Text>
               </View>
 
 
@@ -228,134 +367,9 @@ const ViewPosts = () => {
     
           </ScrollView>
       </LinearGradient>
-    </View>
+      </View>
     );
   }
-  return (
-    <View style={styles.containerMajor}>
-    
-    <LinearGradient colors = {['#000000', '#2c106e', '#71319e']} style = {styles.linearGradient}>
-      <StatusBar style="dark" />   
-        <ScrollView style={styles.scrollView}>
-
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image source={casualImageEx} style={styles.image} />
-          </View>
-
-
-          <View style={styles.interactContainer}>
-            <View style = {[styles.leftTextContainer, styles.textUnderline]}>
-              <Text style= {styles.text}>Outfit By: Amy</Text>
-            </View>
-
-            <View style = {styles.leftTextContainer}>
-              <Text style= {styles.text}>Style: Casual</Text>
-            </View>
-
-            <View style = {styles.descTextContainer}>
-              <Text style= {styles.descText}>Outfit for today!</Text>
-            </View>
-            
-            <View style = {styles.likeContainer}>
-              <Pressable onPress={() => setLiked1((isLiked) => !isLiked)}>
-                <Ionicons
-                  name={liked1 ? "heart" : "heart-outline"}
-                  size={32}
-                  color={liked1 ? '#fc3fc4' : "black"}
-                />
-              </Pressable>
-
-              <Text style = {styles.likeText}>313</Text>
-
-            </View>
-
-          </View>
-        </View>
-
-        <View style={styles.container}>
-          
-        </View>
-
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image source={profImageEx} style={styles.image} />
-          </View>
-
-
-          <View style={styles.interactContainer}>
-            <View style = {[styles.leftTextContainer, styles.textUnderline]}>
-              <Text style= {styles.text}>Outfit By: Jeremy</Text>
-            </View>
-
-            <View style = {styles.leftTextContainer}>
-              <Text style= {styles.text}>Style: Professional</Text>
-            </View>
-
-            <View style = {styles.descTextContainer}>
-              <Text style= {styles.descText}>Ready to present.</Text>
-            </View>
-            
-            <View style = {styles.likeContainer}>
-              <Pressable onPress={() => setLiked2((isLiked) => !isLiked)}>
-                <Ionicons
-                  name={liked2 ? "heart" : "heart-outline"}
-                  size={32}
-                  color={liked2 ? '#fc3fc4' : "black"}
-                />
-              </Pressable>
-
-              <Text style = {styles.likeText}>200</Text>
-            </View>
-
-          </View>
-
-          
-        </View>
-
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image source={exerImageEx} style={styles.image} />
-          </View>
-
-
-          <View style={styles.interactContainer}>
-            <View style = {[styles.leftTextContainer, styles.textUnderline]}>
-              <Text style= {styles.text}>Outfit By: Lucy</Text>
-            </View>
-
-            <View style = {styles.leftTextContainer}>
-              <Text style= {styles.text}>Style: Exercise</Text>
-            </View>
-
-            <View style = {styles.descTextContainer}>
-              <Text style= {styles.descText}>Workout fit!!</Text>
-            </View>
-            
-            <View style = {styles.likeContainer}>
-              <Pressable onPress={() => setLiked3((isLiked) => !isLiked)}>
-                <Ionicons
-                  name={liked3 ? "heart" : "heart-outline"}
-                  size={32}
-                  color={liked3 ? '#fc3fc4' : "black"}
-                />
-              </Pressable>
-
-              <Text style = {styles.likeText}>114</Text>
-            </View>
-
-
-          </View>
-
-
-
-        </View>
-        
-  
-        </ScrollView>
-    </LinearGradient>
-    </View>
-  );
 };
 
 const styles = StyleSheet.create({
@@ -401,7 +415,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    //fontFamily: 'Helvetica',
+    fontFamily: 'Exo',
+    fontWeight: '700', //???
     lineHeight: 32,
     fontWeight: '300',
     textAlign: 'left',
@@ -439,7 +454,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#fc3fc4',
     paddingLeft: 5,
-  }
+  },
 });
 
 export default ViewPosts;

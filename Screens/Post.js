@@ -14,6 +14,7 @@ const { width } = Dimensions.get("window");
 
 export default function Post() {
 
+
   const [selectedImage, setSelectedImage] = useState(null);
   const navigation = useNavigation();
 
@@ -58,12 +59,19 @@ export default function Post() {
   }
 
   const Post = () => {
-    navigation.navigate('ViewPosts', {postText: inputValue});
+    if(selectedImage != null) {
+      navigation.navigate('ViewPosts', {postText: inputValue});
+      setSelectedImage(null);
+    } else {
+      alert('Please select an image.');
+    }
   };
+
+  
 
   //the page with the buttons
   return (
-    <LinearGradient colors = {['#000000', '#2c106e', '#71319e']} style = {styles.linearGradient}>
+    <LinearGradient colors = {['#123EA6','#0947DA','#6D2FEC','#71319e']} style = {styles.linearGradient}>
       <View style={styles.container}>
         <View style = {styles.imageContainer}>
           <ImageViewer
@@ -89,12 +97,12 @@ export default function Post() {
                    onDismiss={toggleModalVisibility}>
                 <View style={styles.viewWrapper}>
                     <View style={styles.modalView}>
-                        <TextInput placeholder="Enter a description for your post" 
+                        <TextInput placeholder="Enter a short description for your post." 
                                    value={inputValue} style={styles.textInput} 
                                    onChangeText={(value) => setInputValue(value)} maxLength={20}/>
   
                         {/** This button is responsible to close the modal */}
-                        <Button theme = "close" label="Close" onPress={toggleModalVisibility} />
+                        <Button theme = "close" label="Confirm" onPress={toggleModalVisibility} />
                     </View>
                 </View>
             </Modal>
