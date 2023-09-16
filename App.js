@@ -7,6 +7,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Screens/Profile';
 import Analyzer from './Screens/Analyzer';
 import Post from './Screens/Post';
+import Model from './Screens/Model';
+import ViewPosts from './Screens/ViewPosts';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -46,6 +48,16 @@ function MainTabs(){
           ),
         }}
       />
+      <Tab.Screen 
+        name="Model" 
+        component={Model}
+        options={{
+          tabBarLabel: 'Model',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="analytics" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -58,6 +70,7 @@ export default function App() {
         screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#00008b' }}} >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="DressHacks" component={MainTabs} />
+        <Stack.Screen name="ViewPosts" component={ViewPosts} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
