@@ -48,16 +48,6 @@ function MainTabs(){
           ),
         }}
       />
-      <Tab.Screen 
-        name="Model" 
-        component={Model}
-        options={{
-          tabBarLabel: 'Model',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="analytics" color={color} size={size} />
-          ),
-        }}
-      />
     </Tab.Navigator>
   );
 }
@@ -71,6 +61,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="DressHacks" component={MainTabs} />
         <Stack.Screen name="ViewPosts" component={ViewPosts} />
+        <Stack.Screen name="Model" component={Model} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
