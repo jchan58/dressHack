@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, useWindowDimensions } 
 import {Camera, CameraType} from 'expo-camera'; 
 import * as MediaLibrary from 'expo-media-library'
 import CameraButtons from '../components/CameraButtons';
+import { useNavigation } from '@react-navigation/native';
 
 const Analyzer = () => {
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -10,6 +11,8 @@ const Analyzer = () => {
     const [type, setType]  = useState(Camera.Constants.Type.back);
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
     const cameraRef = useRef(null);
+    const navigation = useNavigation();
+
 
     useEffect(() => {
         (async () => {
@@ -35,13 +38,15 @@ const Analyzer = () => {
         if(image){
             try{
                 await MediaLibrary.createAssetAsync(image);
-                alert('Picture saved!')
+                alert('Picture saved!');
+                navigation.navigate('Model', { imageUri: image });
                 setImage(null);
             }catch(e){
                 console.log(error)
             }
         }
     }
+    
 
     if(hasCameraPermission === false) {
         return <Text>Access Denied to Camera</Text>

@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';  // <-- Add useEffect
+import React, { useState, useEffect } from 'react';
 import { View, Button, Image, Text } from 'react-native';
 import axios from 'axios';
-import * as ImagePicker from 'expo-image-picker';
-import * as Location from 'expo-location'; // <-- Import Location
+import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Model() {
-    const [image, setImage] = useState(null);
+export default function Model({ route }) {
+    const imageUri = route.params?.imageUri;
+    const [image, setImage] = useState(imageUri);
+    console.log("Received imageUri:", imageUri);
     const [actualPrediction, setActualPrediction] = useState(null);
     const [colorPrediction, setColorPrediction] = useState(null);
     const [weatherPrediction, setWeatherPrediction] = useState(null);
-    const [location, setLocation] = useState(null);  // <-- Store the user's location
+    const [location, setLocation] = useState(null); 
+    const actualLabels = ['Casual', 'Professional'];
+    const colorLabels = ['Coordinated', 'Uncoordinated'];
+    const weatherLabels = ['Fall', 'Spring', 'Summer', 'Winter'];
+    const navigation = useNavigation();
 
     useEffect(() => {
-        // Request location permission when the component mounts
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
@@ -23,24 +28,39 @@ export default function Model() {
             let currentLocation = await Location.getCurrentPositionAsync({});
             setLocation(currentLocation.coords);
         })();
-    }, []); // <-- Run this effect only once, when the component mounts
+    }, []); 
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
+    const getHigherLabel = () => {
+        if (!actualPrediction || !Array.isArray(actualPrediction[0])) return null;
+        return actualLabels[actualPrediction[0][0] > actualPrediction[0][1] ? 0 : 1];
+    };   
+    
+    const makePost = () => {
+        const label = getHigherLabel();
+        if (!label) {
+            console.error("Prediction data is missing.");
+            return;
+        }
+        
+        navigation.navigate('Post', {
+            image: image,
+            label: label
         });
+    };
+    
 
-        if (!result.cancelled) {
-            setImage(result.uri);
+    const getLabel = (model, index) => {
+        switch (model) {
+            case 'actual': return actualLabels[index] || `Label ${index}`;
+            case 'color': return colorLabels[index] || `Label ${index}`;
+            case 'weather': return weatherLabels[index] || `Label ${index}`;
+            default: return `Label ${index}`;
         }
     };
 
     const getPrediction = async () => {
         if (!image) return;
-    
+        console.log("Inside getPrediction function with image:", image);
         const formData = new FormData();
         formData.append('file', {
             uri: image,
@@ -66,24 +86,21 @@ export default function Model() {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Button title="Pick Image" onPress={pickImage} />
-    {image && <Image source={{ uri: image }} style={{ width: 256, height: 256 }} />}
-    <Button title="Predict" onPress={getPrediction} />
+            {image && <Image source={{ uri: image }} style={{ width: 256, height: 256 }} />}
+            <Button title="Predict" onPress={getPrediction} />
 
-    {actualPrediction && Array.isArray(actualPrediction[0]) && actualPrediction[0].map((prob, index) => (
-        <Text key={index}>Actual Model - Label {index}: {(prob ? (prob * 100).toFixed(2) : 'N/A')}%</Text>
-    ))}
+            {actualPrediction && Array.isArray(actualPrediction[0]) && actualPrediction[0].map((prob, index) => (
+                <Text key={index}>Actual Model - {getLabel('actual', index)}: {(prob ? (prob * 100).toFixed(2) : 'N/A')}%</Text>
+            ))}
 
-    {colorPrediction && Array.isArray(colorPrediction[0]) && colorPrediction[0].map((prob, index) => (
-        <Text key={index}>Color Model - Label {index}: {(prob ? (prob * 100).toFixed(2) : 'N/A')}%</Text>
-    ))}
+            {colorPrediction && Array.isArray(colorPrediction[0]) && colorPrediction[0].map((prob, index) => (
+                <Text key={index}>Color Model - {getLabel('color', index)}: {(prob ? (prob * 100).toFixed(2) : 'N/A')}%</Text>
+            ))}
 
-    {weatherPrediction && Array.isArray(weatherPrediction[0]) && weatherPrediction[0].map((prob, index) => ( 
-        <Text key={index}>Weather Model - Label {index}: {(prob ? (prob * 100).toFixed(2) : 'N/A')}%</Text>
-    ))}
-
-    {location && <Text>Location: {location.latitude}, {location.longitude}</Text>}
-</View>
-
+            {weatherPrediction && Array.isArray(weatherPrediction[0]) && weatherPrediction[0].map((prob, index) => ( 
+                <Text key={index}>Weather Model - {getLabel('weather', index)}: {(prob ? (prob * 100).toFixed(2) : 'N/A')}%</Text>
+            ))}
+            <Button title="Make a Post" onPress={makePost} />
+        </View>
     );
 }
