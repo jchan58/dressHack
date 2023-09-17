@@ -32,22 +32,22 @@ function MainTabs(){
         }}
       />
       <Tab.Screen 
+        name="Camera" 
+        component={Analyzer}
+        options={{
+          tabBarLabel: 'Camera', headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="Camera" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen 
         name="Post" 
         component={Post}
         options={{
           tabBarLabel: 'Post', headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="create" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="Analyzer" 
-        component={Analyzer}
-        options={{
-          tabBarLabel: 'Analyzer', headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="analytics" color={color} size={size} />
           ),
         }}
       />
