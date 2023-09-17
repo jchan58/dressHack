@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 
-const CustomInput = ({value, setValue, placeholder}) => {
+const CustomInput = ({value, setValue, placeholder, secureTextEntry }) => {
   //receving value from user because this is a resuable component
   return (
     <View style = {styles.container}>
@@ -10,7 +10,9 @@ const CustomInput = ({value, setValue, placeholder}) => {
       //when text changes update the newly updated text 
       onChangeText={setValue}
       placeholder={placeholder} 
-      style = {styles.input} />
+      style = {styles.input}
+      secureTextEntry ={secureTextEntry}
+       />
     </View>
   )
 }
@@ -18,8 +20,10 @@ const CustomInput = ({value, setValue, placeholder}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white', 
-    width: 300,
-    height: 30,
+    width: 350,
+    height: 45,
+
+    justifyContent: "center",
 
     borderColor: '#000000', 
     borderWidth: 1, 
@@ -29,7 +33,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, 
     marginVertical: 5, 
   },
-  input: {},
+  input: {
+  },
 
 })
 
