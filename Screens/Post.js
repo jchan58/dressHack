@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     flex: 1 / 3,
     alignItems: 'center',
     paddingTop: 10,
+    height: 100,
   },
   linearGradient: {
     flex: 1,

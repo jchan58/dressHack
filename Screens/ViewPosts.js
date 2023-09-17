@@ -29,7 +29,7 @@ const ViewPosts = () => {
     await Font.loadAsync({
       'Orbitron': require('../assets/fonts/Orbitron.ttf'), 'Tektur': require('../assets/fonts/Orbitron.ttf'), 
       'JosefinSans': require('../assets/fonts/JosefinSans.ttf'), 'Roboto': require('../assets/fonts/Roboto.ttf'),
-      'Exo': require('../assets/fonts/Exo.ttf')
+      'Tajawal': require('../assets/fonts/Tajawal.ttf')
     });
     setLoaded(true);
   }
@@ -78,7 +78,7 @@ const ViewPosts = () => {
     }
 
     if(postStyle == null) {
-      postStyle = '';
+      //postStyle = '';
     }
     const postText = route.params?.postText
     if(fontsLoaded) {
@@ -107,7 +107,7 @@ const ViewPosts = () => {
                 </View>
 
                 <View style = {styles.leftTextContainer}>
-                  <Text style= {styles.text}>Style: {postStyle}</Text>
+                  <Text style= {styles.text}>Style: {post}</Text>
                 </View>
 
                 <View style = {styles.descTextContainer}>
@@ -424,8 +424,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    fontFamily: 'Exo',
-    fontWeight: '700', //???
+    fontFamily: 'Tajawal',
     lineHeight: 32,
     fontWeight: '300',
     textAlign: 'left',
@@ -450,6 +449,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     borderWidth: 0,
     fontSize: 60,
+    fontFamily: 'Tajawal',
   },
   descText: {
     fontSize: 25,

@@ -6,7 +6,6 @@ import CustomInput from '../components/Custom_Input';
 import { useNavigation } from '@react-navigation/native';
 import {LinearGradient} from 'expo-linear-gradient';
 import CustomButton from '../components/CustomButton';
-import LOGO from '../assets/images/LOGO_NEW.jpeg'; 
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -65,76 +64,83 @@ const Login = () => {
 }
   const {height} = useWindowDimensions();
 
-  return (
-    //wrap whole thing in scroll view
-    <LinearGradient colors={['#000000', '#2c106e', '#71319e']} style={styles.linearGradient}>
-    <ScrollView>
-    <View style = {styles.root}>
-      <Image source = {LOGO} 
-      style={[styles.logo, 
-      {height: height * 0.2}]}>
-      </Image>
-      
-      <View style= {styles.containerInput}>
-        <View style={styles.textInputContainer}>
-          <CustomInput 
-            value={email}
-            setValue={setEmail}
-            placeholder= "Email" 
-            secureTextEntry={false}
-          />
+ 
+    return (
+      //wrap whole thing in scroll view
+      <LinearGradient colors={['#123EA6','#0947DA','#6D2FEC','#71319e']} style={styles.linearGradient}>
+      <ScrollView>
+      <View style = {styles.root}>
+        <Image source = {Logo} 
+        style={
+          [styles.logo, 
+        {height: height * 0.2}]}>
+        </Image>
+        
+        <View style= {styles.containerInput}>
+          <View style={styles.textInputContainer}>
+            <CustomInput 
+              value={email}
+              setValue={setEmail}
+              placeholder= "Email" 
+              secureTextEntry={false}
+            />
 
-          <CustomInput 
-          placeholder="Password" 
-          value={password} 
-          setValue={setPassword} 
-          secureTextEntry={true}
-          />
-
-          <CustomButton
-          text = "Sign In"
-          onPress = {handleLogin}
-          />
-
-           <CustomButton
-              text="Forgot Password?"
-              onPress={onForgotPasswordPressed}
-              type= "TERTIARY"
-          />
-
-            <CustomButton
-              text="Sign In With Facebook"
-              onPress={onSignInFacebook}
-              bgColor= '#87cefa'
-              fgColor= '#4765A9'
-              
+            <CustomInput 
+            placeholder="Password" 
+            value={password} 
+            setValue={setPassword} 
+            secureTextEntry={true}
             />
 
             <CustomButton
-              text="Sign In With Google"
-              onPress={onSignInGoogle}
-              bgColor='#ffb6c1'
-              fgColor='#DD4D44'
+            text = "Sign In"
+            onPress = {handleLogin}
+            type = "HANDJET"
             />
 
             <CustomButton
-              text="Sign In With Apple"
-              onPress={onSignInApple}
-              bgColor='#d3d3d3'
-              fgColor='#363636'
+                text="Forgot Password?"
+                onPress={onForgotPasswordPressed}
+                type= "TERTIARY"
             />
 
-            <CustomButton
-              text="Don't Have an Account? Create One"
-              onPress={onNoAccountPress}
-              type="TERTIARY"
-            />
+              <CustomButton
+                text="Sign In With Facebook"
+                onPress={onSignInFacebook}
+                bgColor= '#87cefa'
+                fgColor= '#4765A9'
+                type = "HANDJET"
+                
+              />
+
+              <CustomButton
+                text="Sign In With Google"
+                onPress={onSignInGoogle}
+                bgColor='#8FF9F1'
+                fgColor='#0888AA'
+                type = "HANDJET"
+              />
+
+              <CustomButton
+                text="Sign In With Apple"
+                onPress={onSignInApple}
+                bgColor='#DAB4FF'
+                fgColor='#363636'
+                type = "HANDJET"
+              />
+
+              <CustomButton
+                text="Don't Have an Account? Create One"
+                onPress={onNoAccountPress}
+                type="TERTIARY"
+              />
+          </View>
         </View>
       </View>
-    </View>
-    </ScrollView>
-       </LinearGradient >
-  )
+      </ScrollView>
+        </LinearGradient >
+    )
+  
 }
 
 
