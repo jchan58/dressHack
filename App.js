@@ -62,6 +62,10 @@ export default function App() {
         <Stack.Screen name="DressHacks" component={MainTabs} />
         <Stack.Screen name="ViewPosts" component={ViewPosts} />
         <Stack.Screen name="Model" component={Model} />
+        <Stack.Screen name="DressHacks" component={MainTabs} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
