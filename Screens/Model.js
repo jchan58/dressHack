@@ -73,6 +73,10 @@ export default function Model({ route }) {
             label: label
         });
     };
+
+    const goBack = () => {
+        navigation.navigate('Analyzer')
+    };
     
 
     const getLabel = (model, index) => {
@@ -129,6 +133,7 @@ export default function Model({ route }) {
             ))}
             <Button title="Make Predictions" onPress={getPrediction} />
             <Button title="Make a Post" onPress={makePost} />
+            <Button title="Take another picture" onPress={goBack} />
         </View>
         </LinearGradient>
     );

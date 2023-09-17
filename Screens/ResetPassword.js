@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import CustomButton from '../components/CustomButton';
 
 
-const ResetPasswordScreen = () => {
+const ResetPassword = () => {
 
     const navigation = useNavigation();
     //both username and password should be state vars since they will be changing
@@ -127,4 +127,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ResetPasswordScreen;
+export default ResetPassword;

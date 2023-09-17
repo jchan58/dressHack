@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import CustomButton from '../components/CustomButton';
 
 
-const ForgotPasswordScreen = () => {
+const ForgotPassword = () => {
 
     //both username and password should be state vars since they will be changing
     //setUsername and setPassword and automatically genereated updater functions
@@ -122,4 +122,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ForgotPasswordScreen;
+export default ForgotPassword;
