@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 100,
+    paddingBottom: 150,
   },
   footerContainer: {
     flex: 1 / 3,
     alignItems: 'center',
-    paddingTop: 40,
+    paddingTop: 10,
   },
   linearGradient: {
     flex: 1,

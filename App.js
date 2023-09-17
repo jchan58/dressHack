@@ -22,17 +22,17 @@ function MainTabs(){
         name="Profile" 
         component={Profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Profile', headerShown: false, 
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" color={color} size={size} />
-          ),
+          ),  
         }}
       />
       <Tab.Screen 
         name="Post" 
         component={Post}
         options={{
-          tabBarLabel: 'Post',
+          tabBarLabel: 'Post', headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="create" color={color} size={size} />
           ),
@@ -42,7 +42,7 @@ function MainTabs(){
         name="Analyzer" 
         component={Analyzer}
         options={{
-          tabBarLabel: 'Analyzer',
+          tabBarLabel: 'Analyzer', headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="analytics" color={color} size={size} />
           ),

@@ -70,7 +70,16 @@ const ViewPosts = () => {
   
   getPostAsync();
   const route = useRoute();
+  const postStyle = route.params?.label;
+  const postIm = route.params?.image;
   if(selectedImage != null) {
+    if(selectedImage == null) {
+      selectedImage = postIm;
+    }
+
+    if(postStyle == null) {
+      postStyle = '';
+    }
     const postText = route.params?.postText
     if(fontsLoaded) {
       return (
@@ -98,7 +107,7 @@ const ViewPosts = () => {
                 </View>
 
                 <View style = {styles.leftTextContainer}>
-                  <Text style= {styles.text}>Style: Casual</Text>
+                  <Text style= {styles.text}>Style: {postStyle}</Text>
                 </View>
 
                 <View style = {styles.descTextContainer}>
