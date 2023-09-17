@@ -37,7 +37,7 @@ function MainTabs(){
         options={{
           tabBarLabel: 'Camera', headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="Camera" color={color} size={size} />
+            <Ionicons name="camera" color={color} size={size} />
           ),
         }}
       />
