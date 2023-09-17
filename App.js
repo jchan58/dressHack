@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './Screens/Login';
+import SignUpScreen from './Screens/SignUpScreen';
+import ForgotPassword from './Screens/ForgotPassword';
+import ResetPassword from './Screens/ResetPassword';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -62,6 +65,9 @@ export default function App() {
         <Stack.Screen name="DressHacks" component={MainTabs} />
         <Stack.Screen name="ViewPosts" component={ViewPosts} />
         <Stack.Screen name="Model" component={Model} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="ResetPassword" component={ResetPassword} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
