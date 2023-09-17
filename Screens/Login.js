@@ -1,3 +1,4 @@
+//edited
 import React, {useState} from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, useWindowDimensions, ScrollView } from 'react-native';
 import Logo from '../assets/images/Logo.png'; 
@@ -157,6 +158,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 18,
+    fontFamily: 'Handjet'
   },
   logo: {
     width: 400, 

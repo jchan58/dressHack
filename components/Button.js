@@ -1,40 +1,77 @@
-import { StyleSheet, View, Pressable, Text } from 'react-native';
+import { StyleSheet, View, Pressable, TouchableOpacity, Text } from 'react-native';
+import * as Font from 'expo-font';
+import { useState } from 'react';
 
 export default function Button({ label, theme, onPress }) {
+
+  const [fontsLoaded, setLoaded] = useState(false);
+  
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      'Handjet': require('../assets/fonts/Handjet.ttf'),
+    });
+    setLoaded(true);
+  }
+
+  loadFonts();
+
+
+
+
     if (theme === "choose") {
+      if(fontsLoaded){
         return (
           <View
           style={[styles.buttonContainer, { borderWidth: 0, borderColor: "#ffd33d", borderRadius: 18, paddingBottom: 10 }]}
           >
-            <Pressable
+            <TouchableOpacity
               style={[styles.button, { backgroundColor: "#fff" }]}
               onPress={onPress}
             >
               <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
-            </Pressable>
+            </TouchableOpacity>
         </View>
         );
+      }
     } else if (theme === "post") {
-      return (
-        <View
-        style={[styles.buttonContainer, { borderWidth: 0, borderColor: "#ffd33d", borderRadius: 18, paddingBottom: 10 }]}
-        >
-          <Pressable
-            style={[styles.button, { backgroundColor: "#fff" }]}
-            onPress={() => alert('You pressed a button.')}
+      if(fontsLoaded){
+        return (
+          <View
+          style={[styles.buttonContainer, { borderWidth: 0, borderColor: "#ffd33d", borderRadius: 18, paddingBottom: 10 }]}
           >
-            <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
-          </Pressable>
-      </View>
-      );
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: "#fff" }]}
+              onPress={onPress}
+            >
+              <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+            </TouchableOpacity>
+        </View>
+        );
+      }
+    } else if (theme === "close") {
+      if(fontsLoaded){
+        return (
+          <View
+          style={[styles.buttonContainer, { borderWidth: 0, borderColor: "#3446eb", borderRadius: 18, paddingBottom: 10 }]}
+          >
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: "#3446eb" }]}
+              onPress={onPress}
+            >
+              <Text style={[styles.buttonLabel, { color: "#ffffff" }]}>{label}</Text>
+            </TouchableOpacity>
+        </View>
+        );
+      }
     }
 
 
   return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+      <TouchableOpacity style={styles.button} onPress={() => alert('You pressed a button.')}>
         <Text style={styles.buttonLabel}>{label}</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -61,6 +98,7 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 20,
+    fontFamily: 'Handjet',
   },
 });
