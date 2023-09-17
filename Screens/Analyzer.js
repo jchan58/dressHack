@@ -4,6 +4,9 @@ import {Camera, CameraType} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library'
 import CameraButtons from '../components/CameraButtons';
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import CustomButton from '../components/CustomButton';
+
 
 const Analyzer = () => {
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -21,6 +24,21 @@ const Analyzer = () => {
             setHasCameraPermission(cameraStatus.status === 'granted');
         })(); 
     }, [])
+
+
+    // Function to handle image selection
+    const pickImage = async () => {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.canceled && result.assets.length > 0) {
+            setImageUri(result.assets[0].uri);
+        }
+    };
 
     const takePicture = async () => {
         if(cameraRef){
@@ -88,6 +106,12 @@ const Analyzer = () => {
             :
             <CameraButtons title={'Take a picture'} icon="camera" onPress={takePicture}/>
             }
+                <View style={{ alignItems: 'center', }}>
+                <CustomButton
+                    text="Pick Image"
+                    onPress={pickImage}
+                />
+                </View>
          </View>
         </View>
     );
