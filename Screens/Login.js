@@ -1,39 +1,138 @@
 import React, {useState} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, useWindowDimensions, ScrollView } from 'react-native';
 import Logo from '../assets/images/Logo.png'; 
 import CustomInput from '../components/Custom_Input';
 import { useNavigation } from '@react-navigation/native';
 import {LinearGradient} from 'expo-linear-gradient';
+import CustomButton from '../components/CustomButton';
+import LOGO from '../assets/images/LOGO_NEW.jpeg'; 
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const Login = () => {
-  const [username, setUsername] = useState('')
+  //both username and password should be state vars since they will be changing
+  //setUsername and setPassword and automatically genereated updater functions
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+
+
+
+  const onNoAccountPress = () => {
+    //direct user to sign up page
+    navigation.navigate('SignUp');
+
+  }
+
+  const onForgotPasswordPressed = () => {
+   navigation.navigate('ForgotPassword');
+
+  }
+
+
+  const onSignInFacebook = () => {
+    console.warn("Sign in");
+
+  }
+
+  const onSignInGoogle= () => {
+    console.warn("Sign in");
+
+  }
+
+  const onSignInApple = () => {
+    console.warn("Sign in");
+
+  }
+
+
   const navigation = useNavigation();
+
   const handleLogin = () => {
-    navigation.navigate('DressHacks', { screen: 'Analyzer' });
+    //validate user is correct with backend 
+    signInWithEmailAndPassword(auth, email, password).then(userCredentials => {
+      const user = userCredentials.user;
+
+      //success navigate to analyzer screen
+      navigation.navigate('DressHacks', { screen: 'Analyzer' });
+    })
+      .catch((error) => {
+        console.warn(error.message);
+      });
+
 }
   const {height} = useWindowDimensions();
+
   return (
+    //wrap whole thing in scroll view
+    <LinearGradient colors={['#000000', '#2c106e', '#71319e']} style={styles.linearGradient}>
+    <ScrollView>
     <View style = {styles.root}>
-      <LinearGradient colors = {['#000000', '#2c106e', '#71319e']} style = {styles.linearGradient}>
-      <Image source = {Logo} 
+      <Image source = {LOGO} 
       style={[styles.logo, 
       {height: height * 0.2}]}>
       </Image>
       
       <View style= {styles.containerInput}>
         <View style={styles.textInputContainer}>
-          <CustomInput placeholder= "Username" value ={username} setvalue={setUsername} />
-          <CustomInput placeholder="Password" value={password} setvalue={setPassword} />
+          <CustomInput 
+            value={email}
+            setValue={setEmail}
+            placeholder= "Email" 
+            secureTextEntry={false}
+          />
+
+          <CustomInput 
+          placeholder="Password" 
+          value={password} 
+          setValue={setPassword} 
+          secureTextEntry={true}
+          />
+
+          <CustomButton
+          text = "Sign In"
+          onPress = {handleLogin}
+          />
+
+           <CustomButton
+              text="Forgot Password?"
+              onPress={onForgotPasswordPressed}
+              type= "TERTIARY"
+          />
+
+            <CustomButton
+              text="Sign In With Facebook"
+              onPress={onSignInFacebook}
+              bgColor= '#87cefa'
+              fgColor= '#4765A9'
+              
+            />
+
+            <CustomButton
+              text="Sign In With Google"
+              onPress={onSignInGoogle}
+              bgColor='#ffb6c1'
+              fgColor='#DD4D44'
+            />
+
+            <CustomButton
+              text="Sign In With Apple"
+              onPress={onSignInApple}
+              bgColor='#d3d3d3'
+              fgColor='#363636'
+            />
+
+            <CustomButton
+              text="Don't Have an Account? Create One"
+              onPress={onNoAccountPress}
+              type="TERTIARY"
+            />
         </View>
-     
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
       </View>
-      </LinearGradient>
     </View>
+    </ScrollView>
+       </LinearGradient >
   )
 }
 
@@ -50,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#122F8E",
     padding: 10,
     borderRadius: 5,
-    width: 80,
+    width: 500,
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
